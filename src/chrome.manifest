@@ -1,0 +1,22 @@
+
+content screengrab chrome/content/
+content screengrab chrome/content/ contentaccessible=yes
+
+overlay chrome://browser/content/browser.xul    chrome://screengrab/content/screengrabOverlay.xul
+
+locale  screengrab  en-US chrome/locale/en-US/
+locale  screengrab  zh-CN chrome/locale/zh-CN/
+locale  screengrab  tr-TR chrome/locale/tr-TR/
+locale  screengrab  sl-SL chrome/locale/sl-SL/
+locale  screengrab  sk-SK chrome/locale/sk-SK/
+locale  screengrab  ru-RU chrome/locale/ru-RU/
+locale  screengrab  ko-KR chrome/locale/ko-KR/
+locale  screengrab  ja-JP chrome/locale/ja-JP/
+locale  screengrab  it-IT chrome/locale/it-IT/
+locale  screengrab  hu-HU chrome/locale/hu-HU/
+locale  screengrab  fr-FR chrome/locale/fr-FR/
+locale  screengrab  es-ES chrome/locale/es-ES/
+locale  screengrab  de-DE chrome/locale/de-DE/
+locale  screengrab  cs-CZ chrome/locale/cs-CZ/
+
+skin    screengrab  classic/1.0 chrome/skin/
