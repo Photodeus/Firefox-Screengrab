@@ -1,6 +1,9 @@
 <!ENTITY screengrab.name "ScreenGrab!">
 <!ENTITY screengrab.copy "Copy...">
 <!ENTITY screengrab.save "Save...">
+<!ENTITY screengrab.save.visible "Save visible">
+<!ENTITY screengrab.save.selection "Save selection">
+<!ENTITY screengrab.redo.previous "Redo previous">
 <!ENTITY screengrab.preview "Preview...">
 <!ENTITY screengrab.crop "Crop...">
 <!ENTITY screengrab.resize "Resize...">
@@ -8,6 +11,7 @@
 <!ENTITY screengrab.visible.portion.of.page "Visible portion...">
 <!ENTITY screengrab.browser.window "Window...">
 <!ENTITY screengrab.selection "Selection...">
+<!ENTITY screengrab.element "Element...">
 <!ENTITY screengrab.preference.panel.label "Screengrab! Settings">
 <!ENTITY screengrab.preference.page.capture.method "Preferred page capture method">
 <!ENTITY screengrab.preference.page.capture.java "Java (older, funkier)">
@@ -17,3 +21,7 @@
 <!ENTITY screengrab.preference.timestamp.in.filename "Include time stamp in filename">
 <!ENTITY screengrab.preference.timestamp.in.filename.description "Enabling this will append a timestamp to all files saved. This can be useful for unique identification.">
 <!ENTITY screengrab.preference.image.format "Image format">
+<!ENTITY screengrab.preference.page.filename.pattern "Filename pattern">
+<!ENTITY screengrab.preference.page.filename.pattern.examples "&#037;Y year, &#037;M month, &#037;D day, &#037;h hour, &#037;m miznute, &#037;s second, &#037;dow day of week (0-6), &#037;TS time stamp, &#037;R random number, &#037;url url, &#037;title title, &#037;W width, &#037;H height">
+<!ENTITY screengrab.preference.image.max.width "Maximum image width:">
+<!ENTITY screengrab.preference.image.max.height "Maximum image height:">

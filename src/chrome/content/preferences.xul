@@ -1,53 +1,73 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://browser/skin/preferences/preferences.css"?>
+<?xml-stylesheet href="chrome://screengrab/skin/screengrab.css" type="text/css"?>
 <!DOCTYPE window SYSTEM "chrome://screengrab/locale/screengrab.dtd">
- 
-<prefwindow id="scg-pref-window" 
-			title="Screengrab Options"
-			type="prefwindow"
-			xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
- 
-	<prefpane id="scg-pref-pane" label="&screengrab.preference.panel.label;">	
-	
-	    <preferences>
-	    	<preference id="prefCaptureMethod" name="extensions.screengrab.captureMethod" type="int" />
-	    	<preference id="prefIncludeTimeStampInFilename" name="extensions.screengrab.includeTimeStampInFilename" type="bool" />
-	    	<preference id="prefImageFormat" name="extensions.screengrab.imageFormat" type="int" />
-		</preferences>
-		
-		<tooltip id="javaTip" orient="vertical">
-			<label value="&screengrab.preference.page.capture.java.description;" />
-		</tooltip>
-		<tooltip id="geckoTip" orient="vertical">
-			<label value="&screengrab.preference.page.capture.gecko.description;" />
-		</tooltip>
-		<tooltip id="timeStampTip" orient="vertical">
-			<label value="&screengrab.preference.timestamp.in.filename.description;" />
-		</tooltip>
-		<hbox align="start">
-		    <label control="captureMethod" value="&screengrab.preference.page.capture.method;"/>
-		    <radiogroup id="captureMethod" preference="prefCaptureMethod">
-		    	<vbox align="start">
-			    	<radio id="useJava" label="&screengrab.preference.page.capture.java;" value="0" tooltip="javaTip" />
-		    		<radio id="useCanvas" label="&screengrab.preference.page.capture.gecko;" value="1" tooltip="geckoTip" />
-		    	</vbox>
-		    </radiogroup>
-		</hbox>
-		<separator />
-		<hbox align="start">
-			<label control="includeTimeStampInFilename" value="&screengrab.preference.timestamp.in.filename;" tooltip="timeStampTip" />
-			<checkbox preference="prefIncludeTimeStampInFilename" id="includeTimeStampInFilename" tooltip="timeStampTip" />
-		</hbox>
-		<separator />
-		<hbox align="start">
-		    <label control="imageFormat" value="&screengrab.preference.image.format;"/>
-		    <radiogroup id="imageFormat" preference="prefImageFormat">
-		    	<vbox>
-			    	<radio id="usePng" label="PNG" value="0"/>
-		    		<radio id="useJpeg" label="JPEG" value="1"/>
-		    	</vbox>
-		    </radiogroup>
-		</hbox>
-	</prefpane>
+
+<prefwindow id="scg-pref-window"
+            title="Screengrab Options"
+            xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <prefpane id="scg-pref-pane" label="&screengrab.preference.panel.label;">
+        <preferences>
+            <preference id="prefIncludeTimeStampInFilename" name="extensions.screengrab.includeTimeStampInFilename"
+                        type="bool"/>
+            <preference id="prefImageFormat" name="extensions.screengrab.imageFormat" type="int"/>
+            <preference id="prefFilePattern" name="extensions.screengrab.filename.pattern" type="unichar"/>
+            <preference id="maxWidth" name="extensions.screengrab.image.max.width" type="int"/>
+            <preference id="maxHeight" name="extensions.screengrab.image.max.height" type="int"/>
+        </preferences>
+        <!--
+        <tooltip id="timeStampTip" orient="vertical">
+          <label value="&screengrab.preference.timestamp.in.filename.description;" />
+        </tooltip>
+        <hbox align="start">
+          <label control="includeTimeStampInFilename" value="&screengrab.preference.timestamp.in.filename;" tooltip="timeStampTip" />
+          <checkbox preference="prefIncludeTimeStampInFilename" id="includeTimeStampInFilename" tooltip="timeStampTip" />
+        </hbox>
+        <separator />
+        -->
+        <vbox>
+            <hbox>
+                <label
+                    align="start"
+                    control="maxWidth"
+                    value="&screengrab.preference.image.max.width;" 
+                    />
+                <spacer flex="1"/>
+                <textbox id="maxWidth" size="5" align="end" preference="maxWidth" type="number"/>
+            </hbox>
+            <hbox>
+                <label
+                    align="start"
+                    control="maxHeight"
+                    value="&screengrab.preference.image.max.height;"
+                    />
+                <spacer flex="1"/>
+                <textbox id="maxHeight" size="5" align="end" preference="maxHeight" type="number"/>
+            </hbox>
+        </vbox>
+        <hbox align="start">
+            <label control="imageFormat" value="&screengrab.preference.image.format;"/>
+            <spacer flex="1"/>
+            <radiogroup id="imageFormat" preference="prefImageFormat" align="end">
+                <hbox>
+                    <radio id="usePng" label="PNG" value="0"/>
+                    <radio id="useJpeg" label="JPEG" value="1"/>
+                </hbox>
+            </radiogroup>
+        </hbox>
+        <vbox>
+            <hbox>
+                <label class="fancy" value="&screengrab.preference.page.filename.pattern;" align="start"/>
+                <spacer flex="1"/>
+                <textbox id="filenamePattern" preference="prefFilePattern" size="30" align="end"/>
+            </hbox>
+            <vbox align="end">
+                <description id="filenamePatternExamples">
+                &screengrab.preference.page.filename.pattern.examples;
+                </description>
+            </vbox>
+        </vbox>
+    </prefpane>
 </prefwindow>

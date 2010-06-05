@@ -2,27 +2,27 @@
     background: url("chrome://screengrab/skin/screengrab_icon.gif") 0 no-repeat;
 }
 
-.box {
+.screengrab_box {
   background-color: #ffff00;
   border: 1px solid #000000;
   color: #000000;
-  padding: 0px;
+  padding: 0;
   position: absolute;
 }
 
-.bar {
+.screengrab_bar {
   background-color: #008080;
   color: #ffffff;
   font-weight: bold;
   padding: 2px 1em 2px 1em;
 }
 
-.content {
+.screengrab_content {
   padding: 1em;
 }
 
-.backgroundOverlay { 
-  background: url("chrome://screengrab/skin/red.png"); 
+.screengrab_backgroundOverlay { 
+  background: rgba(255, 20, 20, .25);
   position: fixed; 
   z-index: 4721; 
   top: 0; 
@@ -31,10 +31,21 @@
   height: 100%; 
 }
 
-.boxOverlay { 
+.screengrab_boxOverlay { 
   z-index: 4726; 
-  background: url("chrome://screengrab/skin/red.png"); 
-  border: 1px solid #000;
+  background: rgba(255, 255, 255, .5);
+  border: 2px solid #F00;
   position: absolute;
 }
 
+#scg-pref-window {
+    max-width: 45em;
+    width: 40em;
+    height: 21em;
+}
+
+#filenamePatternExamples {
+    max-width: 35em;
+    min-height: 6em;
+    overflow: auto;
+}

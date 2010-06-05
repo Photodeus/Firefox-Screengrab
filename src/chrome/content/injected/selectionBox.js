@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2004-2007  Andy Mutton
+Copyright (C) 2004-2010  Andy Mutton
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -30,7 +30,7 @@ function beginBoxDraw(event) {
     if (boxDiv == null) {
         boxDiv = winCon.document.createElement("div");
         boxDiv.setAttribute("id", BOX_DIV);
-        boxDiv.setAttribute("class", "boxOverlay");
+        boxDiv.setAttribute("class", "screengrab_boxOverlay");
 	    winCon.document.getElementById(BACKGROUND_DIV).appendChild(boxDiv);
     }
     
