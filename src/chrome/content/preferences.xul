@@ -16,6 +16,7 @@
             <preference id="prefFilePattern" name="extensions.screengrab.filename.pattern" type="unichar"/>
             <preference id="maxWidth" name="extensions.screengrab.image.max.width" type="int"/>
             <preference id="maxHeight" name="extensions.screengrab.image.max.height" type="int"/>
+            <preference id="jpegQuality" name="extensions.screengrab.jpgImageQuality" type="int"/>
         </preferences>
         <!--
         <tooltip id="timeStampTip" orient="vertical">
@@ -56,6 +57,11 @@
                     <radio id="useJpeg" label="JPEG" value="1"/>
                 </hbox>
             </radiogroup>
+        </hbox>
+        <hbox align="start">
+            <label control="jpegQuality" value="JPEG image quality (5-100)"/>
+            <spacer flex="1"/>
+            <textbox id="jpegQuality" size="5" align="end" preference="jpegQuality" type="number"/>
         </hbox>
         <vbox>
             <hbox>
