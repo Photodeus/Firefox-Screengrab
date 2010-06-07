@@ -38,19 +38,27 @@ screengrab.prefs = {
     filenamePattern: "filename.pattern",
     maxWidth: "image.max.width",
     maxHeight: "image.max.height",
+    selectionTop: "selection.top",
+    selectionLeft: "selection.left",
+    selectionWidth: "selection.width",
+    selectionHeight: "selection.height",
 	
     prefBranch : null,
 	
-	getBool: function(pref) {
-		return nsPreferences.getBoolPref(this.extensionPrefix + pref);
+	getBool: function(pref, def) {
+		return nsPreferences.getBoolPref(this.extensionPrefix + pref, def);
 	},
 	
-	getInt: function(pref) {
-        return nsPreferences.getBoolPref(this.extensionPrefix + pref);
+	getInt: function(pref, def) {
+        return nsPreferences.getIntPref(this.extensionPrefix + pref, def);
     },
-	
-	format : function() {
-        if (nsPreferences.getIntPref(this.extensionPrefix + this.imageFormat) == 0) {
+
+    setInt: function(pref, val) {
+        return nsPreferences.setIntPref(this.extensionPrefix + pref, val);
+    },
+    
+    format : function() {
+        if (this.getInt(this.imageFormat) == 0) {
             return this.PNG;
         } else {
             return this.JPEG;
@@ -58,7 +66,7 @@ screengrab.prefs = {
     },
 	
 	formatMimeType : function() {
-        if (nsPreferences.getIntPref(this.extensionPrefix + this.imageFormat) == 0) {
+        if (this.getInt(this.imageFormat) == 0) {
             return "image/png";
         } else {
             return "image/jpeg";
@@ -69,11 +77,14 @@ screengrab.prefs = {
 		if (mimeType == "image/png") {
 			return "";
 		}
-		return 'quality=' + nsPreferences.getIntPref(this.extensionPrefix + this.imageQuality);
+        var value = this.getInt(this.imageQuality);
+        if (value < 5) value = 5;
+        if (value > 100) value = 100;
+        return 'quality=' + value;
     },
 	
 	showFileInDownloads : function() {
-		return nsPreferences.getBoolPref(this.extensionPrefix + this.showFileInDownloadsPref);
+		return this.getBool(this.showFileInDownloadsPref);
 	},
     
     defaultFileName : function() {
@@ -114,7 +125,7 @@ screengrab.prefs = {
 	},
 	
 	loggingEnabled : function() {
-		return nsPreferences.getBoolPref(this.extensionPrefix + this.enableLogging, false);
+		return this.getBool(this.enableLogging, false);
 	},
 	
 	/*
@@ -126,27 +137,28 @@ screengrab.prefs = {
 		if (window.navigator.userAgent.toLowerCase().indexOf("mac") > -1) {
 			defaultTime = 400;
 		}
-		return nsPreferences.getIntPref(this.extensionPrefix + "javaScrollWaitMs", defaultTime);
+		return this.getInt("javaScrollWaitMs", defaultTime);
 	},
 	
 	javaEnabled : function() {
 		if (!window.navigator.javaEnabled()) {
 			return false;
 		}
-		return nsPreferences.getBoolPref(this.extensionPrefix + "useJavaIfAvailable");
+		return this.getBool("useJavaIfAvailable");
 	},
 	
 	incGrabCount : function() {
-		var numTaken = nsPreferences.getIntPref(this.extensionPrefix + this.numberofGrabsTaken, 0);
-		nsPreferences.setIntPref(this.extensionPrefix + this.numberofGrabsTaken, numTaken + 1);
-	},
+		var numTaken = this.getInt(this.numberofGrabsTaken, 0) + 1;
+		nsPreferences.setIntPref(this.extensionPrefix + this.numberofGrabsTaken, numTaken);
+        return numTaken;
+    },
 	
 	browserDownloadDir : function() {
 		return nsPreferences.copyUnicharPref("browser.download.dir");
 	},
 	
 	useBrowserDownloadDir : function () {
-		return nsPreferences.getBoolPref(this.extensionPrefix + this.useBrowserDownloadDirPref);
+		return this.getBool(this.useBrowserDownloadDirPref);
 	},
 	
 	toolbarAddedOnce: function() {
@@ -158,7 +170,7 @@ screengrab.prefs = {
     },
 	
 	refreshContextMenu : function() {
-		if (nsPreferences.getBoolPref(this.extensionPrefix + this.showInContextMenu, true)) {
+		if (this.getBool(this.showInContextMenu, true)) {
 			this.show("screengrab-context-menu");
 			this.show("screengrab-context-separator");
 		} else {
@@ -191,7 +203,7 @@ screengrab.prefs = {
 	},
 	
 	refreshStatusbar : function() {
-		if (nsPreferences.getBoolPref(this.extensionPrefix + this.showIconInStatusBar), true) {
+		if (this.getBool(this.showIconInStatusBar), true) {
 			this.show("screengrab_panel");
 		} else {
 			this.hide("screengrab_panel");
@@ -242,7 +254,23 @@ screengrab.prefs = {
 		}
 	},
 	
-	configuratePrefs : function() {
+    setLastSelectionRectangle : function(top, left, width, height) {
+        this.setInt(this.selectionTop, top);
+        this.setInt(this.selectionLeft, left);
+        this.setInt(this.selectionWidth, width);
+        this.setInt(this.selectionHeight, height);
+    },
+
+    getLastSelectionRectangle : function() {
+        return new screengrab.Box(
+            this.getInt(this.selectionTop, 0), 
+            this.getInt(this.selectionLeft, 0),
+            this.getInt(this.selectionWidth, 16),
+            this.getInt(this.selectionHeight, 16)
+            );
+    },
+    
+    configuratePrefs : function() {
 		screengrab.prefs.register();
 		setTimeout(function() {
 			screengrab.prefs.refreshContextMenu();
@@ -257,7 +285,7 @@ screengrab.prefs = {
 	},
 	
 	openPrefs:function() {
-		window.openDialog("chrome://screengrab/content/preferences.xul", "screengrab-options-dialog", "toolbar,centerscreen,chrome,modal,resizable" + this.instantApply() ? ",dialog=no" : "");
+		window.openDialog("chrome://screengrab/content/preferences.xul", "screengrab-options-dialog", "toolbar,centerscreen,chrome,modal,resizable=" + this.instantApply() ? ",dialog=no" : "");
 	}
 }
 window.addEventListener("load", function() {
