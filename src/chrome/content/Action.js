@@ -1,13 +1,16 @@
 
 screengrab.Action = function() {}
 screengrab.Action.prototype = {
-	doAction: function(canvas) {}
+	doAction: function(canvas) {
+        screengrab.prefs.incGrabCount();
+    }
 }
 
 screengrab.SaveAction = function() {}
 screengrab.SaveAction.prototype = {
 	doAction: function(canvas) {
-		var msg = document.getElementById("screengrab-strings").getString("SaveAsMessage");
+        screengrab.prefs.incGrabCount();
+        var msg = document.getElementById("screengrab-strings").getString("SaveAsMessage");
         var picker = new screengrab.ImageFilePicker(screengrab.prefs.defaultFileName() + "." + screengrab.prefs.format(), msg, screengrab.prefs.formatMimeType());
         var file = picker.getFile();
 		var dataUrl = canvas.toDataURL(file.mimeType, screengrab.prefs.formatQuality(file.mimeType));
@@ -18,8 +21,18 @@ screengrab.SaveAction.prototype = {
 screengrab.CopyAction = function() {}
 screengrab.CopyAction.prototype = {
 	doAction: function(canvas) {
-        var dataUrl = canvas.toDataURL("image/png", "");
+        screengrab.prefs.incGrabCount();
+        var dataUrl = canvas.toDataURL(screengrab.prefs.formatMimeType(), screengrab.prefs.formatQuality(screengrab.prefs.formatMimeType()));
 		screengrab.Clipboard.putImgDataUrl(dataUrl, null);
+    }
+}
+
+screengrab.NewTabAction = function() {}
+screengrab.NewTabAction.prototype = {
+	doAction: function(canvas) {
+        screengrab.prefs.incGrabCount();
+        var dataUrl = canvas.toDataURL(screengrab.prefs.formatMimeType(), screengrab.prefs.formatQuality(screengrab.prefs.formatMimeType()));
+        gBrowser.addTab(dataUrl);
     }
 }
 
@@ -28,6 +41,7 @@ screengrab.UploadScrnshotsAction = function(shotData) {
 }
 screengrab.UploadScrnshotsAction.prototype = {
     doAction: function(canvas) {
+        screengrab.prefs.incGrabCount();
         try {
 			var me = this;
 //			this.shotData = new sg.ScrnShots.ShotData();
