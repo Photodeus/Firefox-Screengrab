@@ -20,18 +20,28 @@ Contact: andy@5263.org
 var BACKGROUND_DIV = "screengrabBackgroundDiv";
 var DRAW_DIV = "screengrabDrawDiv";
 var BOX_DIV = "screengrabBoxDiv";
+var COORD_DIV = "screengrabBoxCoord";
 
 var originX = null;
 var originY = null;
 
 function beginBoxDraw(event) {
-	var winCon = window._content;
+	var winCon = window.content;
     var boxDiv = winCon.document.getElementById(BOX_DIV);
     if (boxDiv == null) {
         boxDiv = winCon.document.createElement("div");
         boxDiv.setAttribute("id", BOX_DIV);
         boxDiv.setAttribute("class", "screengrab_boxOverlay");
-	    winCon.document.getElementById(BACKGROUND_DIV).appendChild(boxDiv);
+
+        var coordDiv = winCon.document.createElement("div");
+        coordDiv.setAttribute("id", COORD_DIV);
+        coordDiv.style.position = 'relative';
+        coordDiv.style.top = '0';
+        coordDiv.style.left = '0';
+        
+        boxDiv.appendChild(coordDiv);
+        
+        winCon.document.getElementById(BACKGROUND_DIV).appendChild(boxDiv);
     }
     
     boxDiv.style.display = "none";
@@ -45,7 +55,7 @@ function beginBoxDraw(event) {
 }
 
 function boxDrawing(event) {
-	var winCon = window._content;
+	var winCon = window.content;
     var boxDiv = winCon.document.getElementById(BOX_DIV);
 
     var mouseX = event.clientX;
@@ -65,10 +75,13 @@ function boxDrawing(event) {
     boxDiv.style.height = height + "px";
     
     boxDiv.style.display = "inline";
+    
+    var coord = boxDiv.childNodes[0];
+    coord.innerHTML = width + ' x ' + height;
 }
 
 function endBoxDraw(event) {
-	var winCon = window._content;
+	var winCon = window.content;
     winCon.document.removeEventListener("mousemove", boxDrawing, true);
     winCon.document.removeEventListener("mouseup", endBoxDraw, true);
 }
