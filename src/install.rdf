@@ -4,7 +4,7 @@
 	<Description about="urn:mozilla:install-manifest">
 		<em:id>{02450954-cdd9-410f-b1da-db804e18c671}</em:id>
 		<em:name>Screengrab</em:name>
-		<em:version>0.96.3-custom</em:version>
+		<em:version>0.97-custom</em:version>
 		<em:description>Saves a web-page as an image.</em:description>
 		<em:creator>Andy Mutton</em:creator>
 		
